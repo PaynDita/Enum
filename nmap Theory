@@ -1,0 +1,24 @@
+Technique	                      Purpose /                           Usefulness
+-sS	                      SYN (stealth) scan —                   fast and efficient
+
+--open	                  Show only open ports —                     removes noise
+
+-p-	                      Full TCP port scan                           (1–65535)
+
+-F	                    Fast top-100 port scan
+
+-n	                    Disable DNS (saves time)
+
+-T4                    	Aggressive timing                   (recommended for local/CTF use)
+
+--min-rate	            Speed tuning —                         useful for fast scans
+
+--max-retries	          Reduce scan time by limiting retries
+
+-A	                    Aggressive scan                   (OS detection, version, scripts)
+
+-sV	                    Service/version detection
+
+-vv	                    More verbose output
+
+Targeted scripts (e.g., ftp*)	Precision enum of specific services
