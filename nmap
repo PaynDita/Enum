@@ -1,0 +1,138 @@
+nmap --open -sS -n -F -T4 --max-retries 2 --host-timeout 30s --min-rate 1000 <target>
+
+nmap --open -sS -n -F -vv <ip$>
+
+nmap --open -sS -n -vv <ip$>
+
+nmap --open -sS -n -vv -p- T4 --min-rate 1000 <ip>
+
+nmap -A -vv -p 445 <ip$>
+
+-----------------------------------------------------------------------------------------------------------------
+
+ Top Vulnerable Ports & Fast Nmap Scans
+🔹 Port 21 (FTP) – Weak login, anonymous access
+nmap -p 21 --script "ftp* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🔹 Port 22 (SSH) – Weak auth, old versions
+nmap -p 22 --script "ssh* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🔹 Port 23 (Telnet) – Clear-text login, default creds
+nmap -p 23 --script "telnet* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🔹 Port 25 (SMTP) – Mail relay, user enumeration
+nmap -p 25 --script "smtp* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🔹 Port 53 (DNS) – Zone transfers, misconfigs
+nmap -p 53 --script "dns* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🔹 Port 80 / 443 (HTTP/HTTPS) – Web enum, CVEs
+nmap -p 80,443 --script "http* and not brute" -T4 --max-retries 2 -vv <IP>
+
+📝 For even deeper HTTP analysis, add:
+--script "http-enum,http-title,http-server-header,http-methods"
+
+🔹 Port 111 (RPCbind/NFS) – Info disclosure, NFS misconfig, remote access
+nmap -p 111 --script "rpcinfo,nfs* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🔹 Port 139, 445 (SMB) – Null sessions, exploits
+nmap -p 445 --script "smb* and not brute" -T4 --max-retries 2 -vv <IP>
+
+📝 Add -p 139,445 if NetBIOS is also in use.
+
+🔹 Port 3306 (MySQL) – Weak creds, old versions
+nmap -p 3306 --script "mysql* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🔹 Port 3389 (RDP) – CVEs, RDP info leaks
+nmap -p 3389 --script "rdp* and not brute" -T4 --max-retries 2 -vv <IP>
+
+🧩 Bonus: All-in-One Targeted Script (Fast Recon Set)
+For a general-purpose vuln recon, run:
+
+nmap -p 21,22,23,25,53,80,139,443,445,3306,3389 \
+--script "default or safe" -T4 --max-retries 2 -vv <IP>
+
+default scripts give general info.
+
+safe excludes any that could crash or brute-force.
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+✅ Updated Top Vulnerable Ports (Real-World & CTF Focus)
+
+Port	          Service	Risk / Notes                                          	  Fast Nmap Scan
+
+21	        FTP	Anonymous access, backdoors, weak creds                          	ftp* and not brute
+
+22	        SSH	Weak passwords, outdated versions	                                ssh* and not brute
+
+23	        Telnet	Clear-text login, default creds                              	telnet* and not brute
+
+25	        SMTP	Open relay, info leaks	                                        smtp* and not brute
+
+53	        DNS	Zone transfer, misconfig, DNS cache poisoning	                    dns* and not brute
+
+80	        HTTP	Web apps, CVEs, misconfig, default creds	                      http* and not brute
+
+88	        Kerberos	Auth attacks, info leaks	krb5-enum-users,                  kerberos*
+
+110	        POP3	Weak authentication	                                            pop3* and not brute
+
+111	        RPCbind	NFS exposure, RPC info leak	rpcinfo,                          nfs*
+
+135	        MS RPC	Windows RPC exploitation	                                    msrpc*
+
+139	        NetBIOS	SMB shares, null sessions	                                    smb*
+
+143        	IMAP	Info disclosure, weak creds	                                    imap* and not brute
+
+161	        SNMP	Default community strings	                                      snmp* and not brute
+
+389	        LDAP	Directory info leaks, enum	                                    ldap* and not brute
+
+443	        HTTPS	Same as HTTP, plus SSL/TLS CVEs	                                http* and ssl* and not brute
+
+445	        SMB	EternalBlue, share access, RCE	                                  smb* and not brute
+
+512,513,514	R commands	Remote shell access on old systems                      	r*
+
+3306      	MySQL	Weak credentials, info leak	                                    mysql* and not brute
+
+3389	      RDP	RCE CVEs, screen capture	                                        rdp* and not brute
+
+5432	      PostgreSQL	Weak auth	                                                pgsql* and not brute
+
+5900	      VNC	Exposed desktops, default creds	                                  vnc* and not brute
+
+6379	      Redis	No auth by default, code injection	redis-info
+
+8080	      HTTP-Alt	Web apps (Tomcat, Jenkins, etc.)	                          http*
+
+8443	      HTTPS-Alt	Admin panels over SSL                                       http*
+
+
+-------------------------------------------------------------------------------------------------------------------
+-F	✅ Faster	Scans only top 100 ports (limited scope)
+-sS	❌ Slower	Uses a stealthy SYN scan (faster method, but usually scans many more ports unless combined with -F)
+
+-------------------------------------------------------------------------------------------------------------------
+-A	Aggressive scan (OS, versions, scripts, traceroute)
+
+
+✅ Best Practice:
+For CTF / pentesting lab: -A -T4 is usually safe
+
+
+For real-world targets: use -A with caution, and only when authorized
+
+---------------------------------------------------------------------------------------------------------------------
+
+| Level | Name       | Description                                                     |
+| ----- | ---------- | --------------------------------------------------------------- |
+| `-T0` | Paranoid   | Very slow, stealthy; avoids IDS detection                       |
+| `-T1` | Sneaky     | Still slow, used for avoiding detection                         |
+| `-T2` | Polite     | Slower than normal; reduces load on network                     |
+| `-T3` | Normal     | Default timing                                                  |
+| `-T4` | Aggressive | Faster scanning; okay on stable networks                        |
+| `-T5` | Insane     | Very fast and aggressive; may miss results or trigger firewalls |
