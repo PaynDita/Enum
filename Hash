@@ -1,0 +1,16 @@
+hashid -m <hashvalue>
+
+hashcat -m <hashmode> hash.txt
+
+hashcat -m <hashmode> --show hash.txt
+
+hashcat hash.txt | grep Kerberos
+
+---------------------------------------------------------------------------------------------
+
+john --format=raw-md5  --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+
+john --format=raw-md5  --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --pot=newrun.pot
+
+john --show hash.txt
+
