@@ -1,0 +1,11 @@
+curl -S http://<ip>/robots.txt
+
+curl -S http://<ip>/robots.txt-output > wordlist
+
+eg:
+└─# curl -S http://10.10.74.38/robots.txt                      
+User-agent: *
+fsocity.dic
+key-1-of-3.txt
+
+-----  curl -S http://10.10.74.38/fsocity.dic > wordlist -----
