@@ -1,0 +1,5 @@
+find / -name fileName 2>/dev/null
+
+eg.
+find / -name php-reverse-shell.php 2>/dev/null
+
