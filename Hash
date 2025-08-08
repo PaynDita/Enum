@@ -4,7 +4,7 @@ hashcat -m <hashmode> hash.txt
 
 hashcat -m <hashmode> --show hash.txt
 
-hashcat hash.txt | grep Kerberos
+hashcat hash.txt | grep hashmode (kerveros, MD5, Raw-MD5)
 
 ---------------------------------------------------------------------------------------------
 
