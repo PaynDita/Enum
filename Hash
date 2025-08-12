@@ -14,3 +14,23 @@ john --format=raw-md5  --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --po
 
 john --show hash.txt
 
+---------------------------------------------------------------------------------------------
+
+hashcat -m 0 -a 0 -o cracked.txt hash.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+
+---------------------------------------------------------------------------------------------------------------------
+What it does:
+This command runs Hashcat — a powerful password cracking tool — to try and crack hashes stored in hash.txt using the RockYou wordlist combined with a ruleset.
+
+Breakdown of options:
+Option/Argument	Meaning
+hashcat	The program itself — used for cracking password hashes
+-m 0	Specifies the hash type to crack. 0 means MD5 hashes
+-a 0	Attack mode: Straight mode — Hashcat tries passwords exactly as listed in the wordlist
+-o cracked.txt	Output file where cracked passwords will be saved
+hash.txt	Input file containing the hashes you want to crack
+/usr/share/wordlists/rockyou.txt	The wordlist (dictionary) file Hashcat will use to try passwords
+
+-r /usr/share/hashcat/rules/best64.rule	Applies the best64.rule ruleset to the wordlist, modifying words (e.g., adding numbers, uppercase, etc.) to increase cracking chances
+
+
