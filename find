@@ -6,3 +6,6 @@ eg.
 find / -name php-reverse-shell.php 2>/dev/null
 
 You can use "locate" command too.
+
+
+dir /s /b C:\*filename*   --In Windows
