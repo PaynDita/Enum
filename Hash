@@ -1,10 +1,12 @@
 hashid -m <hashvalue>
 
-hashcat -m <hashmode> hash.txt
+hashcat --help | grep -i 'as-rep\|krb5'   or hashcat --help | grep -i 'Kerberos'        (to get hash mode)
+
+hashcat -m <hashmode> hash.txt    or  hashcat -m <hashmode> hash.txt  passwordlist(or path to rockyou.txt)
 
 hashcat -m <hashmode> --show hash.txt
 
-hashcat hash.txt | grep hashmode (kerveros, MD5, Raw-MD5)
+
 
 ---------------------------------------------------------------------------------------------
 
