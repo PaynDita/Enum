@@ -1,5 +1,5 @@
 
-cat /etc/passwd \ grep sh$
+cat /etc/passwd | grep sh$
 
 | grep sh$
 
