@@ -1,0 +1,11 @@
+
+cat /etc/passwd \ grep sh$
+
+| grep sh$
+
+| → This is a pipe. It sends the output of the first command (cat /etc/passwd) to the next command (grep sh$).
+
+grep sh$ → Filters lines that end with sh.
+
+sh$ → Lines ending with sh (e.g., /bin/bash, /bin/sh, /bin/zsh).
+
